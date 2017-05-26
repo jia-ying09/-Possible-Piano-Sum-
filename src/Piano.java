@@ -30,7 +30,7 @@ public class Piano extends JComponent {
 
 
     // YOUR GAME VARIABLES WOULD GO HERE
-
+    int whiteX = 50;
     
 
     // GAME VARIABLES END HERE   
@@ -71,10 +71,13 @@ public class Piano extends JComponent {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
+        
         // GAME DRAWING GOES HERE
+        if (whiteX <= 600){
+           whiteX =  whiteX + 50;
         //draw white piano keys
-        g.drawRect(50, 100, 50, 150);
-        g.drawRect(100, 100, 50, 150);
+        g.drawRect(whiteX, 100, 50, 150);
+      /*  g.drawRect(100, 100, 50, 150);
         g.drawRect(150, 100, 50, 150);
         g.drawRect(200, 100, 50, 150);
         g.drawRect(250, 100, 50, 150);
@@ -86,7 +89,7 @@ public class Piano extends JComponent {
         g.drawRect(550, 100, 50, 150);
         g.drawRect(600, 100, 50, 150);
         g.drawRect(650, 100, 50, 150);
-        g.drawRect(700, 100, 50, 150);
+        g.drawRect(700, 100, 50, 150);*/}
         
         g.setColor(Color.black);
         //draw black piano keys
@@ -101,7 +104,7 @@ public class Piano extends JComponent {
         g.fillRect(637, 100, 25, 100);
         g.fillRect(687, 100, 25, 100);
         
-        
+        Math.random( );
        
         // GAME DRAWING ENDS HERE
     }
@@ -190,7 +193,7 @@ public class Piano extends JComponent {
         // if a key has been pressed down
         @Override
         public void keyPressed(KeyEvent e){
-            
+       //  String a = keyPressed(a);   
         }
         
         // if a key has been released
