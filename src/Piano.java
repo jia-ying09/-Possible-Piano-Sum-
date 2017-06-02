@@ -1,9 +1,9 @@
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -19,26 +19,34 @@ public class Piano extends JComponent {
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
-    
     //Title of the window
     String title = "My Game";
-
     // sets the framerate and delay for our game
     // you just need to select an approproate framerate
     long desiredFPS = 60;
     long desiredTime = (1000) / desiredFPS;
-
-
     // YOUR GAME VARIABLES WOULD GO HERE
-    int whiteX = 50;
-    
+    int piano1X = 200;
+    int piano2X = 300;
+    int piano3X = 400;
+    int pianoY = 300;
+    int r = (int) (Math.random() * 256);
+    int b = (int) (Math.random() * 256);
+    int g = (int) (Math.random() * 256);
 
+    Color change = Color.white;
+    Color random = new Color (r, b, g); 
+    Color purplish = new Color (163, 177, 217);
+    Color bluish = new Color (144, 195, 212);
+    
+    boolean leftPressed;
+    boolean downPressed;
+    boolean rightPressed;
+    
     // GAME VARIABLES END HERE   
-
-    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public Piano(){
+    public Piano() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -53,16 +61,16 @@ public class Piano extends JComponent {
         frame.pack();
         // shows the window to the user
         frame.setVisible(true);
-        
+
         // add listeners for keyboard and mouse
         frame.addKeyListener(new Keyboard());
         Mouse m = new Mouse();
-        
+
         this.addMouseMotionListener(m);
         this.addMouseWheelListener(m);
         this.addMouseListener(m);
     }
-    
+
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
@@ -71,51 +79,33 @@ public class Piano extends JComponent {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        
+
         // GAME DRAWING GOES HERE
-        if (whiteX <= 600){
-           whiteX =  whiteX + 50;
+
         //draw white piano keys
-        g.drawRect(whiteX, 100, 50, 150);
-      /*  g.drawRect(100, 100, 50, 150);
-        g.drawRect(150, 100, 50, 150);
-        g.drawRect(200, 100, 50, 150);
-        g.drawRect(250, 100, 50, 150);
-        g.drawRect(300, 100, 50, 150);
-        g.drawRect(350, 100, 50, 150);
-        g.drawRect(400, 100, 50, 150);
-        g.drawRect(450, 100, 50, 150);
-        g.drawRect(500, 100, 50, 150);
-        g.drawRect(550, 100, 50, 150);
-        g.drawRect(600, 100, 50, 150);
-        g.drawRect(650, 100, 50, 150);
-        g.drawRect(700, 100, 50, 150);*/}
         
-        g.setColor(Color.black);
-        //draw black piano keys
-        g.fillRect(87, 100, 25, 100);
-        g.fillRect(137, 100, 25, 100);
-        g.fillRect(237, 100, 25, 100);
-        g.fillRect(287, 100, 25, 100);
-        g.fillRect(337, 100, 25, 100);
-        g.fillRect(437, 100, 25, 100);
-        g.fillRect(487, 100, 25, 100);
-        g.fillRect(587, 100, 25, 100);
-        g.fillRect(637, 100, 25, 100);
-        g.fillRect(687, 100, 25, 100);
+        g.setColor(change);
+        g.fillRect(piano1X, pianoY, 100, 200);
+        g.fillRect(piano2X, pianoY, 100, 200);
+        g.fillRect(piano3X, pianoY, 100, 200);
         
-        Math.random( );
-       
+       g.setColor(Color.black);
+         g.drawRect(200, 300, 100, 200);
+        g.drawRect(300, 300, 100, 200);
+        g.drawRect(400, 300, 100, 200);
+        
+        
+        
+
+
+
         // GAME DRAWING ENDS HERE
     }
 
-
     // This method is used to do any pre-setup you might need to do
     // This is run before the game loop begins!
-    public void  preSetup(){
-       // Any of your pre setup before the loop starts should go here
-
-       
+    public void preSetup() {
+        // Any of your pre setup before the loop starts should go here
     }
 
     // The main game loop
@@ -138,7 +128,30 @@ public class Piano extends JComponent {
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
             
+            if (leftPressed == true)
+            {change = random;
+            }
             
+            if (downPressed == true)
+            {change = random;
+            }
+            
+            if (rightPressed == true)
+            {change = random;
+            }
+            
+            if (leftPressed == false)
+            {change = Color.white;
+            }
+            
+            if (downPressed == false)
+            {change = Color.white;
+            }
+            
+            if (rightPressed == false)
+            {change = Color.white;
+            }
+
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
             repaint();
@@ -159,60 +172,72 @@ public class Piano extends JComponent {
         }
     }
 
-    
-
     // Used to implement any of the Mouse Actions
     private class Mouse extends MouseAdapter {
         // if a mouse button has been pressed down
+
         @Override
-        public void mousePressed(MouseEvent e){
-            
+        public void mousePressed(MouseEvent e) {
         }
-        
+
         // if a mouse button has been released
         @Override
-        public void mouseReleased(MouseEvent e){
-            
+        public void mouseReleased(MouseEvent e) {
         }
-        
+
         // if the scroll wheel has been moved
         @Override
-        public void mouseWheelMoved(MouseWheelEvent e){
-            
+        public void mouseWheelMoved(MouseWheelEvent e) {
         }
 
         // if the mouse has moved positions
         @Override
-        public void mouseMoved(MouseEvent e){
-            
+        public void mouseMoved(MouseEvent e) {
         }
     }
-    
+
     // Used to implements any of the Keyboard Actions
-    private class Keyboard extends KeyAdapter{
-        // if a key has been pressed down
-        @Override
-        public void keyPressed(KeyEvent e){
-       //  String a = keyPressed(a);   
-        }
+    private class Keyboard extends KeyAdapter {
+           
         
+        // if a key has been pressed down
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            
+            
+            if (e.getKeyCode() ==  KeyEvent.VK_LEFT){
+            leftPressed = true;}
+            else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            downPressed = true;}
+            else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            rightPressed = true;}
+
+            //  String a = keyPressed(a);   
+        }
+
         // if a key has been released
         @Override
-        public void keyReleased(KeyEvent e){
+        public void keyReleased(KeyEvent e) {
             
+              if (e.getKeyCode() ==  KeyEvent.VK_LEFT){
+            leftPressed = false;}
+            else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            downPressed = false;}
+            else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            rightPressed = false;}
+
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // creates an instance of my game
         Piano game = new Piano();
-                
+
         // starts the game loop
         game.run();
     }
 }
-
