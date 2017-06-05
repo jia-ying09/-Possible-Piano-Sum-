@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -26,13 +27,17 @@ public class Piano extends JComponent {
     long desiredFPS = 60;
     long desiredTime = (1000) / desiredFPS;
     // YOUR GAME VARIABLES WOULD GO HERE
-    int piano1X = 200;
-    int piano2X = 300;
-    int piano3X = 400;
+    int piano1X = 300;
+    int piano2X = 400;
+    int piano3X = 500;
     int pianoY = 300;
     int r = (int) (Math.random() * 256);
     int b = (int) (Math.random() * 256);
     int g = (int) (Math.random() * 256);
+    
+    
+    int fallingY = 10;
+   // int changingX = (int) (Math.random() * 200);
 
     Color change = Color.white;
     Color random = new Color (r, b, g); 
@@ -42,6 +47,9 @@ public class Piano extends JComponent {
     boolean leftPressed;
     boolean downPressed;
     boolean rightPressed;
+    
+    int score = 0;
+    Font myFont = new Font ("Ariel", Font.BOLD, 75);
     
     // GAME VARIABLES END HERE   
     // Constructor to create the Frame and place the panel in
@@ -83,22 +91,23 @@ public class Piano extends JComponent {
         // GAME DRAWING GOES HERE
 
         //draw white piano keys
-        
         g.setColor(change);
         g.fillRect(piano1X, pianoY, 100, 200);
         g.fillRect(piano2X, pianoY, 100, 200);
         g.fillRect(piano3X, pianoY, 100, 200);
         
-       g.setColor(Color.black);
-         g.drawRect(200, 300, 100, 200);
+        g.setColor(Color.black);
         g.drawRect(300, 300, 100, 200);
         g.drawRect(400, 300, 100, 200);
+        g.drawRect(500, 300, 100, 200);
         
-        
-        
+        //the falling keys
+        g.setColor(purplish);
+        g.fillRect(400, fallingY, 100, 200);
 
-
-
+        g.setColor(bluish);
+        g.setFont(myFont);
+        g.drawString(" " + score, WIDTH / 2, 75);
         // GAME DRAWING ENDS HERE
     }
 
@@ -151,6 +160,8 @@ public class Piano extends JComponent {
             if (rightPressed == false)
             {change = Color.white;
             }
+            
+            fallingY = fallingY + 10;
 
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
